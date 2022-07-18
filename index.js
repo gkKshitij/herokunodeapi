@@ -19,10 +19,13 @@ app.use(
 app.options("*", cors());
 
 mongoose
-  .connect(process.env.DATABASE_URL, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://niranjan101:Q3WO8k1zV5KGo4qM@cluster0.5i6tn.mongodb.net/test?retryWrites=true&w=majority",
+    {
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("Successfully connected to db"))
   .catch((err) => console.log(err));
 
