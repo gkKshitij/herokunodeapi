@@ -1,18 +1,25 @@
 {
   "name": "herokuapi",
   "version": "1.0.0",
-  "description": "nodejs REST api on heroku",
+  "description": "PDFOCR nodejs REST api on heroku",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
+    "dotenv": "^16.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^6.4.4",
-    "morgan": "^1.10.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "morgan": "^1.10.0",
+    "mongodb": "^3.6.0"
   },
   "author": "kgk",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
