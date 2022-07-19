@@ -42,7 +42,7 @@ router.get("/getInvoices", async (req, res) => {
   res.json(invoices);
 });
 
-router.get("/getInvoice/:invoiceid", async (req, res) => {
+router.get("/getInvoice/?id=:invoiceid", async (req, res) => {
   const _id = req.params.invoiceid;
   const invoices = await Invoice.findById(_id);
   res.json(invoices);
