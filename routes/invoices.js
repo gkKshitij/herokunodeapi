@@ -1,7 +1,7 @@
 // node imports
 const router = require("express").Router();
 const { response } = require("express");
-const url = require("url");
+const url = require("url"); // for querying json with url
 
 // internal imports
 const Invoice = require("../model/invoice");
@@ -47,7 +47,7 @@ router.get("/getInvoice/", async (req, res) => {
   // const _id = req.params.invoiceid;
   const _id = req.query.id;
   const invoices = await Invoice.findById(_id);
-  res.json(invoices);
+  res.json([invoices]);
 });
 
 router.patch("/editInvoice/:invoiceid", async (req, res) => {
