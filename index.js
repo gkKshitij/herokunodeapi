@@ -28,6 +28,11 @@ mongoose
 
 // path imports
 app.get("/", (req, res) => res.send("Working!!!"));
+
+app.get("/me", async (req, res) => {
+  res.json(true);
+});
+
 app.use("/invoices", require("./routes/invoices"));
 
 //listener
