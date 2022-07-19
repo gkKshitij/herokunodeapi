@@ -1,6 +1,7 @@
 // node imports
 const router = require("express").Router();
 const { response } = require("express");
+const url = require("url");
 
 // internal imports
 const Invoice = require("../model/invoice");
@@ -42,8 +43,9 @@ router.get("/getInvoices", async (req, res) => {
   res.json(invoices);
 });
 
-router.get("/getInvoice/?id=:invoiceid", async (req, res) => {
-  const _id = req.params.invoiceid;
+router.get("/getInvoice/", async (req, res) => {
+  // const _id = req.params.invoiceid;
+  const _id = req.query.id;
   const invoices = await Invoice.findById(_id);
   res.json(invoices);
 });
