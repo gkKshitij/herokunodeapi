@@ -1,14 +1,13 @@
+// node internal and third party imports
 const express = require("express");
 const app = express();
-var cors = require("cors");
+const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
+// initializing middleware
 app.use(morgan("dev"));
 app.use(express.json()); // parses incoming requests with JSON payloads
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
@@ -18,6 +17,7 @@ app.use(
 );
 app.options("*", cors());
 
+// using mongoose to connect to mongodb
 mongoose
   .connect(process.env.DATABASE_URL, {
     // useNewUrlParser: true,
@@ -26,9 +26,12 @@ mongoose
   .then(() => console.log("Successfully connected to db"))
   .catch((err) => console.log(err));
 
-// path imports
+////////////////////////////////////////////////
+
+// url path defining
 app.get("/", (req, res) => res.send("Working!!!"));
 
+// authentication jugad for zapier or any basic authentication
 app.get("/me", async (req, res) => {
   res.json(true);
 });
