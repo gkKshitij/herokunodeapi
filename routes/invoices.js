@@ -1,4 +1,4 @@
-// node imports
+// node and third party imports
 const router = require("express").Router();
 const { response } = require("express");
 const url = require("url"); // for querying json with url
@@ -6,9 +6,29 @@ const url = require("url"); // for querying json with url
 // internal imports
 const Invoice = require("../model/invoice");
 
+////////////////////////////////////////////////
+
+// callable url methods
+
+//GETS
+
+// get all invoices in json array format
+router.get("/getInvoices", async (req, res) => {
+  const invoices = await Invoice.find({});
+  res.json(invoices);
+});
+
+// get a particular invoice based on "id" query
+router.get("/getInvoice/", async (req, res) => {
+  // const _id = req.params.invoiceid; //and add ":invoiceid" to the url
+  const _id = req.query.id;
+  const invoices = await Invoice.findById(_id);
+  res.json([invoices]);
+});
+
+///POSTS
+// post/upload a new invoice
 router.post("/newInvoice", async (req, res) => {
-  //   const title = req.body.title;
-  //   const description = req.body.description;
   const tax_reg_no = req.body.tax_reg_no;
   const telephone = req.body.telephone;
   const external_order_no = req.body.external_order_no;
@@ -20,8 +40,6 @@ router.post("/newInvoice", async (req, res) => {
   const order_number = req.body.order_number;
   const vat_no = req.body.vat_no;
   const newInvoice = new Invoice({
-    // title: title,
-    // description: description,
     tax_reg_no: tax_reg_no,
     telephone: telephone,
     external_order_no: external_order_no,
@@ -38,23 +56,12 @@ router.post("/newInvoice", async (req, res) => {
   res.json(savedInvoice);
 });
 
-router.get("/getInvoices", async (req, res) => {
-  const invoices = await Invoice.find({});
-  res.json(invoices);
-});
-
-router.get("/getInvoice/", async (req, res) => {
-  // const _id = req.params.invoiceid;
+//PATCHES
+// edit invoice
+router.patch("/editInvoice/", async (req, res) => {
   const _id = req.query.id;
-  const invoices = await Invoice.findById(_id);
-  res.json([invoices]);
-});
-
-router.patch("/editInvoice/:invoiceid", async (req, res) => {
-  const _id = req.params.invoiceid;
   const update = await Invoice.findByIdAndUpdate(_id, {
     $set: {
-      //   description: req.body.description,
       tax_reg_no: req.body.tax_reg_no,
       telephone: req.body.telephone,
       external_order_no: req.body.external_order_no,
@@ -70,8 +77,9 @@ router.patch("/editInvoice/:invoiceid", async (req, res) => {
   res.json(update);
 });
 
-router.delete("/deleteInvoice/:invoiceid", async (req, res) => {
-  const _id = req.params.invoiceid;
+//DELETES
+router.delete("/deleteInvoice", async (req, res) => {
+  const _id = req.query.id;
   await Invoice.remove({ _id: _id });
   res.json({ Status: "removed sucessfully" });
 });
