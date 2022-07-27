@@ -29,8 +29,8 @@ router.get("/getPayment/", async (req, res) => {
 ///POSTS
 // post/upload a new payment
 router.post("/newPayment", async (req, res) => {
-  const price_id = req.body.price_id;
-  const quantity = req.body.quantity;
+  const price_id = req.query.price_id;
+  const quantity = req.query.quantity;
   const newPayment = new Payment({
     price_id: price_id,
     quantity: quantity,
