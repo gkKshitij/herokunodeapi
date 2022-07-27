@@ -37,6 +37,7 @@ app.get("/me", async (req, res) => {
 });
 
 app.use("/invoices", require("./routes/invoices"));
+app.use("/payments", require("./routes/payments"));
 
 //listener
 app.listen(process.env.PORT || 3000, function () {
